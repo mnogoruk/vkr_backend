@@ -13,7 +13,7 @@ class AppSettings(BaseSettings):
     title: str = "VKR"
     version: str = "0.0.1"
 
-    database_url: str = 'postgresql+asyncpg://postgres:1@localhost:5432/postgres'
+    database_url: str = 'postgresql+asyncpg://user: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@95.163.214.31/PostgreSQL-2280'
 
     max_connection_count: int = 10
     min_connection_count: int = 10

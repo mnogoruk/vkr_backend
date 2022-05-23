@@ -26,6 +26,7 @@ def get_application() -> FastAPI:
         "startup",
         create_start_app_handler(application, settings),
     )
+
     application.add_event_handler(
         "shutdown",
         create_stop_app_handler(application),

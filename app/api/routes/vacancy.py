@@ -34,13 +34,25 @@ async def retrieve_vacancy_area(
     return area
 
 
+_employers = []
+
+
 @router.get('/employers/', response_model=List[VacancyEmployerInResponse],
             name='vacancy:vacancy-employers')
 async def list_vacancy_employers(
         vacancy_employer_repo: VacancyEmployerRepository = Depends(get_repository(VacancyEmployerRepository))
 ) -> List[VacancyEmployerInResponse]:
-    areas = await vacancy_employer_repo.list_all()
-    return areas
+    global _employers
+    if len(_employers) == 0:
+        employers = await vacancy_employer_repo.list_all()
+        for employer in employers:
+            _employers.append(
+                VacancyEmployerInResponse(
+                    id=employer.id,
+                    name=employer.name
+                )
+            )
+    return _employers
 
 
 @router.get('/employers/{employer_id}/', response_model=VacancyEmployerInResponse,
