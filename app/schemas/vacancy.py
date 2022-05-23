@@ -7,7 +7,7 @@ from app.schemas.specialization import SpecializationInResponse
 
 class VacancyAreaInResponse(RWSchema):
     id: str
-    name: str
+    label: str
 
 
 class VacancyEmployerInResponse(RWSchema):

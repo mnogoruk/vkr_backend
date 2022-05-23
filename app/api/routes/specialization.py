@@ -43,7 +43,7 @@ async def list_specializations(
             _specializations.append(
                 SpecializationInResponse(
                     id=spec.id,
-                    name=spec.name,
+                    label=spec.name,
                     laboring=spec.laboring,
                     specialization_category=SpecializationCategoryInResponse(
                         id=spec.specialization_category.id,

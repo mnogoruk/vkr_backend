@@ -25,7 +25,7 @@ async def list_vacancy_areas(
             _areas.append(
                 VacancyAreaInResponse(
                     id=area.id,
-                    name=area.name
+                    label=area.name
                 )
             )
     return _areas

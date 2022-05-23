@@ -8,7 +8,7 @@ class SpecializationCategoryInResponse(RWSchema):
 
 class SpecializationInResponseBase(RWSchema):
     id: str
-    name: str
+    label: str
     laboring: bool
 
 
