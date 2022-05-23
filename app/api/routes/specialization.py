@@ -9,6 +9,7 @@ from app.schemas.specialization import SpecializationCategoryInResponse, Special
 
 router = APIRouter()
 
+_specializations = []
 
 @router.get('/categories/', response_model=List[SpecializationCategoryInResponse],
             name='specialization:specialization-categories')
@@ -37,8 +38,20 @@ async def retrieve_category(
 async def list_specializations(
         spec_repo: SpecializationRepository = Depends(get_repository(SpecializationRepository))
 ) -> List[SpecializationInResponse]:
-    specs = await spec_repo.list_all()
-    return specs
+    if len(_specializations) == 0:
+        for spec in await spec_repo.list_all():
+            _specializations.append(
+                SpecializationInResponse(
+                    id=spec.id,
+                    name=spec.name,
+                    laboring=spec.laboring,
+                    specialization_category=SpecializationCategoryInResponse(
+                        id=spec.specialization_category.id,
+                        name=spec.specialization_category.name,
+                    )
+                )
+            )
+    return _specializations
 
 
 @router.get('/{specialization_id}/', response_model=SpecializationInResponse,

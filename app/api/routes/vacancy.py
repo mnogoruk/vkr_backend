@@ -11,14 +11,24 @@ from app.schemas.vacancy import VacancyAreaInResponse, VacancyEmployerInResponse
 
 router = APIRouter()
 
+_employers = []
+_areas = []
+
 
 @router.get('/areas/', response_model=List[VacancyAreaInResponse],
             name='vacancy:vacancy-areas')
 async def list_vacancy_areas(
         vacancy_area_repo: VacancyAreaRepository = Depends(get_repository(VacancyAreaRepository))
 ) -> List[VacancyAreaInResponse]:
-    areas = await vacancy_area_repo.list_all()
-    return areas
+    if len(_areas) == 0:
+        for area in await vacancy_area_repo.list_all():
+            _areas.append(
+                VacancyAreaInResponse(
+                    id=area.id,
+                    name=area.name
+                )
+            )
+    return _areas
 
 
 @router.get('/areas/{area_id}/', response_model=VacancyAreaInResponse,
@@ -32,9 +42,6 @@ async def retrieve_vacancy_area(
         raise HTTPException(status_code=404, detail='Area not found')
 
     return area
-
-
-_employers = []
 
 
 @router.get('/employers/', response_model=List[VacancyEmployerInResponse],
