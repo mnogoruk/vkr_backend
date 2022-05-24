@@ -1,3 +1,5 @@
+from typing import Optional
+
 from app.schemas.rwschema import RWSchema
 
 
@@ -8,7 +10,8 @@ class SpecializationCategoryInResponse(RWSchema):
 
 class SpecializationInResponseBase(RWSchema):
     id: str
-    label: str
+    label: Optional[str]
+    name: Optional[str]
     laboring: bool
 
 

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from app.schemas.rwschema import RWSchema
 from app.schemas.specialization import SpecializationInResponse
@@ -7,7 +7,8 @@ from app.schemas.specialization import SpecializationInResponse
 
 class VacancyAreaInResponse(RWSchema):
     id: str
-    label: str
+    label: Optional[str]
+    name: Optional[str]
 
 
 class VacancyEmployerInResponse(RWSchema):
